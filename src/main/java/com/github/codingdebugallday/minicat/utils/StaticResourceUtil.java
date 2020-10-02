@@ -1,4 +1,4 @@
-package com.github.codingdebugallday.minicat.server.utils;
+package com.github.codingdebugallday.minicat.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,15 +1,19 @@
-package com.github.codingdebugallday.minicat.server;
+package com.github.codingdebugallday.minicat;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-import com.github.codingdebugallday.minicat.server.servlet.HttpServlet;
+import com.github.codingdebugallday.minicat.server.RequestProcessor;
+import com.github.codingdebugallday.minicat.servlet.HttpServlet;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -51,24 +55,20 @@ public class Bootstrap {
 
         // 加载解析相关的配置，web.xml
         loadServlet();
+        // 定义一个线程池
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(10,
+                50,
+                100L,
+                TimeUnit.SECONDS,
+                new ArrayBlockingQueue<>(50),
+                Executors.defaultThreadFactory(),
+                new ThreadPoolExecutor.CallerRunsPolicy()
+        );
         ServerSocket serverSocket = new ServerSocket(port);
         System.out.println("============>>> Minicat start on port: " + port);
         while (true) {
             Socket socket = serverSocket.accept();
-            InputStream inputStream = socket.getInputStream();
-            Request request = new Request(inputStream);
-            OutputStream outputStream = socket.getOutputStream();
-            Response response = new Response(outputStream);
-            String url = request.getUrl();
-            if (!serverMap.containsKey(url)) {
-                // 静态资源处理
-                response.outputHtml(url);
-            } else {
-                // 动态资源（servlet）处理
-                HttpServlet httpServlet = serverMap.get(url);
-                httpServlet.service(request, response);
-            }
-            socket.close();
+            threadPoolExecutor.execute(new RequestProcessor(socket, serverMap));
         }
     }
 

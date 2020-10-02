@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 
-import com.github.codingdebugallday.minicat.server.utils.HttpProtocolUtil;
-import com.github.codingdebugallday.minicat.server.utils.StaticResourceUtil;
+import com.github.codingdebugallday.minicat.utils.HttpProtocolUtil;
+import com.github.codingdebugallday.minicat.utils.StaticResourceUtil;
 
 /**
  * <p>

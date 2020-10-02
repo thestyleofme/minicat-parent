@@ -1,4 +1,4 @@
-package com.github.codingdebugallday.minicat.server.servlet;
+package com.github.codingdebugallday.minicat.servlet;
 
 import com.github.codingdebugallday.minicat.server.Request;
 import com.github.codingdebugallday.minicat.server.Response;

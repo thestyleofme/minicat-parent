@@ -3,7 +3,7 @@
 <web-app>
     <servlet>
         <servlet-name>myServlet</servlet-name>
-        <servlet-class>com.github.codingdebugallday.minicat.server.servlet.MyServlet</servlet-class>
+        <servlet-class>com.github.codingdebugallday.minicat.servlet.MyServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>myServlet</servlet-name>
