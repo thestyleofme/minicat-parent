@@ -55,15 +55,6 @@ public class WebAppClassloader extends URLClassLoader {
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         synchronized (getClassLoadingLock(name)) {
             Class<?> clazz;
-            // 查找定义缓存中是否已经加载了该类。
-            clazz = findLoadedClass0(name);
-            if (clazz != null) {
-                if (resolve) {
-                    resolveClass(clazz);
-                }
-                return clazz;
-            }
-
             // 调用父类查看是否已经加载该类
             clazz = findLoadedClass(name);
             if (clazz != null) {
@@ -75,18 +66,18 @@ public class WebAppClassloader extends URLClassLoader {
 
             // 尝试从java
             String resourceName = binaryNameToPath(name, false);
-            ClassLoader javaseLoader = getClassLoader();
-            boolean tryLoadingFromJavaseLoader;
+            ClassLoader javaLoader = getClassLoader();
+            boolean tryLoadingFromJavaLoader;
             try {
-                URL url = javaseLoader.getResource(resourceName);
-                tryLoadingFromJavaseLoader = (url != null);
+                URL url = javaLoader.getResource(resourceName);
+                tryLoadingFromJavaLoader = (url != null);
             } catch (Exception t) {
-                tryLoadingFromJavaseLoader = true;
+                tryLoadingFromJavaLoader = true;
             }
 
-            if (tryLoadingFromJavaseLoader) {
+            if (tryLoadingFromJavaLoader) {
                 try {
-                    clazz = javaseLoader.loadClass(name);
+                    clazz = javaLoader.loadClass(name);
                     if (clazz != null) {
                         if (resolve) {
                             resolveClass(clazz);
