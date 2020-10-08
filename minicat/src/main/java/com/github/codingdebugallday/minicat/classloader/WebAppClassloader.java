@@ -55,6 +55,15 @@ public class WebAppClassloader extends URLClassLoader {
     protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
         synchronized (getClassLoadingLock(name)) {
             Class<?> clazz;
+            // 查找定义缓存中是否已经加载了该类。
+            clazz = findLoadedClass0(name);
+            if (clazz != null) {
+                if (resolve) {
+                    resolveClass(clazz);
+                }
+                return clazz;
+            }
+
             // 调用父类查看是否已经加载该类
             clazz = findLoadedClass(name);
             if (clazz != null) {
