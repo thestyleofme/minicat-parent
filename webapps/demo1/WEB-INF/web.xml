@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+    <servlet>
+        <servlet-name>demo1Servlet</servlet-name>
+        <servlet-class>com.github.codingdebugallday.demo1.servlet.Demo1Servlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>demo1Servlet</servlet-name>
+        <url-pattern>/demo</url-pattern>
+    </servlet-mapping>
+</web-app>

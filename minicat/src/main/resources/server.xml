@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server>
+    <Service>
+        <!--监听的端口号-->
+        <Connector port="8080"/>
+        <Engine>
+            <!--appBase: 部署项目的绝对路径-->
+            <Host name="localhost" appBase="E:/myGitCode/minicat-parent/webapps"/>
+        </Engine>
+    </Service>
+</Server>
