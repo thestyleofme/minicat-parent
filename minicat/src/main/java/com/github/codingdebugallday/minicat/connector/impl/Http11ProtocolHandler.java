@@ -19,7 +19,7 @@ public class Http11ProtocolHandler implements ProtocolHandler {
 
     private Executor executor;
     private Connector connector;
-    private Endpoint endpoint;
+    private final Endpoint endpoint;
 
     public Http11ProtocolHandler(Endpoint endpoint) {
         this.endpoint = endpoint;

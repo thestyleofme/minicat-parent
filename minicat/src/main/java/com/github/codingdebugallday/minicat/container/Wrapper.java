@@ -47,11 +47,31 @@ public interface Wrapper {
      */
     void setClassName(String className);
 
+    /**
+     * 获取className
+     *
+     * @return className
+     */
     String getClassName();
 
+    /**
+     * 设置servletName
+     *
+     * @param servletName servletName
+     */
     void setServletName(String servletName);
 
+    /**
+     * 获取servletName
+     *
+     * @return servletName
+     */
     String getServletName();
 
+    /**
+     * 设置Context
+     *
+     * @param context Context
+     */
     void setContext(Context context);
 }
